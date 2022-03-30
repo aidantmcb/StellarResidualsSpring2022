@@ -34,16 +34,26 @@ matplotlib.rcParams.update({'xtick.labelsize':18,
 from TolColors import tol_cmap
 cmap = tol_cmap('rainbow_PuRd')
 cmap_diverge = tol_cmap('sunset')
-def getspecpaths(tab):
+# def getspecpaths(tab):
+#     specdir = '/uufs/chpc.utah.edu/common/home/sdss/dr17/apogee/spectro/aspcap/dr17/synspec_rev1/{TELESCOPE}/{FIELD}/'
+#     specname = 'aspcapStar-dr17-{SOURCEID}.fits'
+#     telescope = np.array(tab['TELESCOPE'], dtype = str)
+#     field = np.array(tab['FIELD'], dtype = str)
+#     sourceid = np.array(tab['APOGEE_ID'], dtype = str)
+#     length = len(sourceid)
+#     path = tuple((specdir + specname).format(TELESCOPE = telescope[i], FIELD = field[i], SOURCEID = sourceid[i]) 
+#                  for i in range(length))
+#     return path
+
+def getspecpath(row):
     specdir = '/uufs/chpc.utah.edu/common/home/sdss/dr17/apogee/spectro/aspcap/dr17/synspec_rev1/{TELESCOPE}/{FIELD}/'
     specname = 'aspcapStar-dr17-{SOURCEID}.fits'
-    telescope = np.array(tab['TELESCOPE'], dtype = str)
-    field = np.array(tab['FIELD'], dtype = str)
-    sourceid = np.array(tab['APOGEE_ID'], dtype = str)
-    length = len(sourceid)
-    path = tuple((specdir + specname).format(TELESCOPE = telescope[i], FIELD = field[i], SOURCEID = sourceid[i]) 
-                 for i in range(length))
-    return (path)
+    telescope = np.array(row['TELESCOPE'], dtype = str)
+    field = np.array(row['FIELD'], dtype = str)
+    sourceid = np.array(row['APOGEE_ID'], dtype = str)
+#     length = len(sourceid)
+    path = (specdir + specname).format(TELESCOPE = telescope, FIELD = field, SOURCEID = sourceid)
+    return path
 
 def getapstarpath(hdulist):
     specdir = '/uufs/chpc.utah.edu/common/home/sdss/dr17/apogee/spectro/redux/dr17/stars/{TELESCOPE}/{FIELD}/'
