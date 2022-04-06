@@ -64,7 +64,13 @@ def getapstarpath(hdulist):
     return path
     
 
-def getwavs(hdulist):
+def getwavs(hdulist = None):
+    if hdulist is None:
+        CRVAL1 = 4.179
+        CDELT1 = 6e-06
+        LEN = 8575
+        wavs = np.power(10, CRVAL1 + CDELT1 * np.arange(LEN))
+        return wavs
     header = hdulist[1].header
     CRVAL1 = header['CRVAL1']
     CDELT1 = header['CDELT1']
