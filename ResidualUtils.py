@@ -34,17 +34,34 @@ matplotlib.rcParams.update({'xtick.labelsize':18,
 from TolColors import tol_cmap
 cmap = tol_cmap('rainbow_PuRd')
 cmap_diverge = tol_cmap('sunset')
-# def getspecpaths(tab):
-#     specdir = '/uufs/chpc.utah.edu/common/home/sdss/dr17/apogee/spectro/aspcap/dr17/synspec_rev1/{TELESCOPE}/{FIELD}/'
-#     specname = 'aspcapStar-dr17-{SOURCEID}.fits'
-#     telescope = np.array(tab['TELESCOPE'], dtype = str)
-#     field = np.array(tab['FIELD'], dtype = str)
-#     sourceid = np.array(tab['APOGEE_ID'], dtype = str)
-#     length = len(sourceid)
-#     path = tuple((specdir + specname).format(TELESCOPE = telescope[i], FIELD = field[i], SOURCEID = sourceid[i]) 
-#                  for i in range(length))
-#     return path
 
+# tools for getting residuals, both individually and for each row in an astropy talbe
+def get_residual(teff, logg, m_h):
+    rowselect = np.where(np.logical_and.reduce([teff >= meta['teff_low'], teff < meta['teff_high'], 
+                    logg >= meta['logg_low'], logg < meta['logg_high'],
+                   m_h >= meta['m_h_low'], m_h < meta['m_h_high']]))[0]
+    if len(rowselect) != 1:
+#         print('Wrong number of rows')
+        return 
+    
+    row = meta[rowselect]
+    j, k = (row['j_ind'], row['k_ind'])
+    filename = row['fname'].item()
+    hdulist = fits.open(filename)
+    hdulist = np.array(hdulist)[1:].reshape(30,12)
+    hdu = hdulist[j, k].item()
+    return hdu
+
+# uses previous function, just automated for a whole table
+def get_residuals_from_tab(tab):
+    residuals = []
+    for row in tab:
+        hdu = get_residual(row['TEFF'], row['LOGG'], row['M_H'])
+        residuals.append(hdu)
+    return residuals
+
+
+# tool for getting the paths of ASPCAP spectra for a row in an allStar astropy table
 def getspecpath(row):
     specdir = '/uufs/chpc.utah.edu/common/home/sdss/dr17/apogee/spectro/aspcap/dr17/synspec_rev1/{TELESCOPE}/{FIELD}/'
     specname = 'aspcapStar-dr17-{SOURCEID}.fits'
@@ -55,6 +72,7 @@ def getspecpath(row):
     path = (specdir + specname).format(TELESCOPE = telescope, FIELD = field, SOURCEID = sourceid)
     return path
 
+# tool for getting the path of apStar/asStar spectra from an ASPCAP hdulist
 def getapstarpath(hdulist):
     specdir = '/uufs/chpc.utah.edu/common/home/sdss/dr17/apogee/spectro/redux/dr17/stars/{TELESCOPE}/{FIELD}/'
     telescope = str(hdulist[4].data['TELESCOPE'][0])
@@ -64,6 +82,7 @@ def getapstarpath(hdulist):
     return path
     
 
+# returns the rest frame wavelengths from a given hdu if specified, or else just return default ASPCAP wavelengths
 def getwavs(hdulist = None):
     if hdulist is None:
         CRVAL1 = 4.179
@@ -77,6 +96,7 @@ def getwavs(hdulist = None):
     wavs = np.power(10, CRVAL1 + CDELT1 * np.arange(len(hdulist[1].data)))
     return wavs 
 
+# ?
 def getspec(path):
     hdulist = fits.open(path)
     spectrum = hdulist[1].data

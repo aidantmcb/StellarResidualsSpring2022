@@ -1,4 +1,5 @@
 *.fits
 .ipynb_checkpoints/
 __pycache__/
-
+OutputPlots/Ca_residuals.pdf
+*.pdf
