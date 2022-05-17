@@ -103,3 +103,18 @@ def getspec(path):
     model = hdulist[3].data
     wavs = getwavs(hdulist)
     return (spectrum, model, wavs)
+
+
+# creates a mask from apStar/asStar bitmask, with options to include/exclude certain flags
+def create_mask(bitmask, flags = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], skipflags = []):
+    # https://www.sdss.org/dr14/algorithms/bitmasks/#APOGEE_PIXMASK
+    if type(flags) is not list:
+        flags = [flags]
+    if type(skipflags) is not list:
+        skipflags = [skipflags]
+
+    mask = np.zeros(bitmask.shape)
+    for i in flags:
+        if i not in skipflags:
+            mask[np.bitwise_and(bitmask, 2**i) == 2**i] = 1
+    return mask
