@@ -118,3 +118,17 @@ def create_mask(bitmask, flags = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], skipfl
         if i not in skipflags:
             mask[np.bitwise_and(bitmask, 2**i) == 2**i] = 1
     return mask
+
+
+
+# returns a table of all stars within a bin
+def get_selected_stars(tab, teff_bin, logg_bin, m_h_bin, return_indices = False):
+    with np.errstate(divide='ignore', invalid = 'ignore'):
+        indices = np.where((tab['TEFF'] >= teff_bin[0]) & (tab['TEFF'] < teff_bin[1]) & 
+                            (tab['LOGG'] >= logg_bin[0]) & (tab['LOGG'] < logg_bin[1]) & 
+                            (tab['M_H'] >= m_h_bin[0]) & (tab['M_H'] < m_h_bin[1]))[0]
+    if return_indices:
+        return indices
+    else:
+        return tab[indices]
+
