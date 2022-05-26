@@ -58,13 +58,13 @@ for name in tqdm.tqdm(fnames, total = len(fnames)):
 
             hdulist = fits.HDUList([hdu0])
             
-            for i in range(1, 7):
+            for i in range(0, 7):
                 if hdu.data is not None:
-                    h = fits.ImageHDU(hdu.data[i-1])
+                    h = fits.ImageHDU(hdu.data[i])
                 else: 
                     h = fits.ImageHDU()
                     
-                h.header['NAME'] = data_names[i-1]
+                h.header['NAME'] = data_names[i]
                 h.header['NBIN'] = nstars
                 h.header['TEFF_MIN'] = teff_min
                 h.header['TEFF_MAX'] = teff_max
