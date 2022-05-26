@@ -33,26 +33,15 @@ for name in tqdm.tqdm(fnames, total = len(fnames)):
     CRVAL1 = header['CRVAL1']
     CDELT1 = header['CDELT1']
     
-#     teff_dir = new_path + 'TEFF_{min}_{max}/'.format(min = str(teff_min), max = str(teff_max))
-    
-#     try:
-#         os.mkdir(teff_dir)
-#     except OSError as error:
-#         pass
-    
     hdul = np.array(hdul)[1:].reshape(30,12)
     
     for hdul_bin in hdul:
         header = hdul_bin[0].header
         logg_min, logg_max = (header['GMIN'], header['GMAX'])
-#         logg_dir = teff_dir + 'LOGG_{min}_{max}/'.format(min = str(logg_min), max = str(logg_max))
-        
-#         try:
-#             os.mkdir(logg_dir)
-#         except OSError as error:
-#             pass
+
         
         for hdu in hdul_bin:
+            header = hdu.header
             m_h_min, m_h_max = (header['MMIN'], header['MMAX'])
             nstars = header['NBIN']
             
@@ -71,7 +60,7 @@ for name in tqdm.tqdm(fnames, total = len(fnames)):
             
             for i in range(1, 7):
                 if hdu.data is not None:
-                    h = fits.ImageHDU(hdu.data[i])
+                    h = fits.ImageHDU(hdu.data[i-1])
                 else: 
                     h = fits.ImageHDU()
                     
