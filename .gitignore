@@ -3,3 +3,9 @@
 __pycache__/
 OutputPlots/Ca_residuals.pdf
 *.pdf
+.DS_Store
+CACloudResiduals.zip
+CACloudResiduals/	
+Residuals.zip
+Residuals/
+ResidualsFiles/
