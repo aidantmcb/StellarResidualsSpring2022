@@ -19,7 +19,7 @@ Within each bin, ASPCAP residuals were masked to ignore pixels with large uncert
 
 __How to use:__ An example of choosing the appropriate median residual for a given set of stellar parameters and applying the correction to an ASPCAP residual is available in this [jupyter notebook.](https://drive.google.com/file/d/186BLVYwTjqGtVQ0N1TBRMh9tPiTnVyiR/view)
 
-![](attachments/stellares.png)
+![](attachments/stellarres.png)
 Above: an ASPCAP stellar residual with and without correction by its corresponding median binned residual. 
 
 
