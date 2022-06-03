@@ -20,6 +20,7 @@ Within each bin, ASPCAP residuals were masked to ignore pixels with large uncert
 __How to use:__ An example of choosing the appropriate median residual for a given set of stellar parameters and applying the correction to an ASPCAP residual is available in this [jupyter notebook.](https://drive.google.com/file/d/186BLVYwTjqGtVQ0N1TBRMh9tPiTnVyiR/view)
 
 ![](attachments/stellarres.png)
+
 Above: an ASPCAP stellar residual with and without correction by its corresponding median binned residual. 
 
 
@@ -27,6 +28,7 @@ Above: an ASPCAP stellar residual with and without correction by its correspondi
 As an exploratory SDSS-IV sample for the [MWM Dust carton](https://wiki.sdss.org/display/OPS/Cartons+for+v1.0), stars were targeted towards the California Cloud in order to fill in the region with a spatial resolution of roughly 100 pc. This sample density will allow for the characterization of localized ISM structures and kinematics using kinetic tomography. 
 
 ![](attachments/CA_map.png)
+
 Above: APOGEE stars with California Cloud fields, plotted over the Bayestar19 extinction map for the region ([Green et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJ...887...93G/abstract)).
 
 
@@ -34,6 +36,7 @@ Using the ASPCAP spectra and the residual model to remove the stellar contributi
 
 
 ![](attachments/CA_dib.png)
+
 Above: color map of median-corrected ASCPAP residuals towards the California Cloud, ordered by distance. Approximate positions of the nearest extent (410 pc), central bubble (455 pc), and furthest extent of the cloud from [Rezaei Kh. & Kainulainen (2022)](https://ui.adsabs.harvard.edu/abs/2022ApJ...930L..22R/abstract) are marked in orange. Note that the strength of the 15272.4 Å DIB increases with distance.
 
 
