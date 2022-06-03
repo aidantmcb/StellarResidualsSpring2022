@@ -13,11 +13,9 @@ As a tool for correcting systemic discrepancies between ASCPAP models and observ
 
 Input APOGEE stars were selected to have relatively low uncertainties in TEFF, LOGG, and M_H, without ASPCAPFLAGs STAR_BAD or CHI2_BAD set, and with | GLAT | > 10° in order to avoid regions of high extinction (and thus strong DIBs). These stars were then grouped by TEFF, LOGG, and M_H according to the binning scheme used by [Ashok et al. (2021)](https://iopscience.iop.org/article/10.3847/1538-3881/abd7f1): 
 
-TEFF: ΔTEFF = 50 K for 3000 K < TEFF < 5000 K and ΔTEFF = 150 K for 5000 K < TEFF < 10,000 K.
-
-LOGG: ΔLOGG = 0.2 dex for -1 < LOGG < 5. 
-
-M_H: ΔM_H = 0.3 dex for − 2.3 < M_H < − 1.1 and ΔM_H = 0.2 dex for − 1.1 < M_H < + 0.5.
++ TEFF: ΔTEFF = 50 K for 3000 K < TEFF < 5000 K and ΔTEFF = 150 K for 5000 K < TEFF < 10,000 K.
++ LOGG: ΔLOGG = 0.2 dex for -1 < LOGG < 5. 
++ M_H: ΔM_H = 0.3 dex for − 2.3 < M_H < − 1.1 and ΔM_H = 0.2 dex for − 1.1 < M_H < + 0.5.
 
 Within each bin, ASPCAP residuals were masked to ignore pixels with large uncertainties or most APOGEE_PIXMASK flags set. Files containing the pixel-wise median, standard deviation, and other statistics for each bin are available [here](https://drive.google.com/file/d/1Xi9358vslHVCtdlQfjuPhUOtfC0u-0WP/view); the accompanying `meta.fits` table describes bin boundaries, residual-wise statistics, and corresponding filenames.
 
